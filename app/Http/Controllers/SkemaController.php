@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skema;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SkemaController extends Controller
 {
@@ -43,8 +44,12 @@ class SkemaController extends Controller
 
     public function destroy($id)
     {
-        Skema::destroy($id);
+        if (auth::user()->role !== 'superadmin') {
+        abort(403);
+    }
 
-        return redirect('/skema');
+    \App\Models\Skema::destroy($id);
+
+    return back();
     }
 }

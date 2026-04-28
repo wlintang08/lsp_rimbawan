@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('audit_logs', function (Blueprint $table) {
+        Schema::create('kriterias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
-            $table->string('aksi');
-            $table->text('deskripsi')->nullable();
+            $table->foreignId('skema_id')->constrained()->cascadeOnDelete();
+            $table->string('nama');
+            $table->integer('bobot')->default(1);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('audit_logs');
+        Schema::dropIfExists('kriterias');
     }
 };

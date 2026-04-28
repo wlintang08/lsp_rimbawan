@@ -12,7 +12,7 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">LSP Rimbawan</a>
+        <a class="navbar-brand" href="#">LSP Rimbawan & Lingkungan</a>
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto">
@@ -35,6 +35,16 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.pendaftaran') }}">Pendaftaran</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.audit') }}">Audit Log</a>
+                        </li>
+                    @endif
+
+                    {{-- ASESOR --}}
+                    @if(auth()->user()->role == 'asesor')
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('asesor.dashboard') }}">Dashboard</a>
                         </li>
                     @endif
 
@@ -102,6 +112,15 @@
                                     </li>
                                 @endforelse
                             </ul>
+                        </li>
+                    @endif
+
+                        {{-- BADGE SUPERADMIN --}}
+                    @if(auth()->user()->role == 'superadmin')
+                        <li class="nav-item">
+                            <span class="badge bg-warning text-dark me-2">
+                             SUPERADMIN
+                            </span>
                         </li>
                     @endif
 

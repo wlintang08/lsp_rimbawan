@@ -1,46 +1,60 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Pendaftaran;
+
+// CONTROLLERS
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Asesi\PendaftaranController as AsesiPendaftaranController;
 use App\Http\Controllers\Admin\PendaftaranController as AdminPendaftaranController;
+use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\Asesi\PendaftaranController as AsesiPendaftaranController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AsesiController;
 use App\Http\Controllers\AsesorController;
 use App\Http\Controllers\SkemaController;
 use App\Http\Controllers\SertifikatController;
-use App\Models\Pendaftaran;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Asesor\DashboardController as AsesorDashboardController;
+
+// ======================
 // ROOT
+// ======================
 Route::get('/', function () {
 
-    if (auth::check()) {
+    if (Auth::check()) {
 
-        if (auth::user()->role === 'admin') {
+        if (Auth::user()->role === 'superadmin' || Auth::user()->role === 'admin') {
             return redirect()->route('admin.dashboard');
         }
 
-        if (auth::user()->role === 'asesi') {
+        if (Auth::user()->role === 'asesi') {
             return redirect()->route('asesi.dashboard');
+        }
+
+        if (Auth::user()->role === 'asesor') {
+            return redirect('/asesor/dashboard'); // nanti kita buat
         }
     }
 
     return redirect()->route('login');
 });
 
+
 // ======================
-// ADMIN
+// ADMIN + SUPERADMIN
 // ======================
-Route::middleware(['auth','role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth','role:admin,superadmin'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
 
+    // CRUD
     Route::resource('asesi', AsesiController::class);
     Route::resource('asesor', AsesorController::class);
     Route::resource('skema', SkemaController::class);
 
+    // PENDAFTARAN
     Route::get('/pendaftaran', [AdminPendaftaranController::class, 'index'])
         ->name('admin.pendaftaran');
 
@@ -55,7 +69,27 @@ Route::middleware(['auth','role:admin'])->prefix('admin')->group(function () {
 
     Route::get('/laporan', [AdminPendaftaranController::class, 'laporanPdf'])
         ->name('admin.laporan');
+
+    // AUDIT LOG
+    Route::get('/audit-log', [AuditLogController::class, 'index'])
+        ->name('admin.audit');
 });
+
+// ======================
+// ASESOR
+// ======================
+Route::middleware(['auth','role:asesor'])->prefix('asesor')->group(function () {
+
+    Route::get('/dashboard', [AsesorDashboardController::class, 'index'])
+        ->name('asesor.dashboard');
+
+    Route::post('/nilai/{id}', [AsesorDashboardController::class, 'nilai'])
+        ->name('asesor.nilai');
+    
+    Route::get('/nilai/{id}', [AsesorDashboardController::class, 'formNilai'])
+        ->name('asesor.nilai.form');
+});
+
 
 // ======================
 // ASESI
@@ -75,6 +109,7 @@ Route::middleware(['auth','role:asesi'])->prefix('asesi')->group(function () {
         ->name('asesi.pendaftaran');
 });
 
+
 // ======================
 // PROFILE
 // ======================
@@ -84,6 +119,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 // ======================
 // SERTIFIKAT
 // ======================
@@ -91,6 +127,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/sertifikat/{id}', [SertifikatController::class, 'cetak'])
         ->name('sertifikat.cetak');
 });
+
 
 // ======================
 // VERIFY (PUBLIC)
@@ -100,9 +137,13 @@ Route::get('/verify/{id}', function ($id) {
     return view('verify', compact('data'));
 })->name('sertifikat.verify');
 
+
+// ======================
+// NOTIFIKASI
+// ======================
 Route::post('/notifikasi/read', function () {
 
-    \App\Models\Pendaftaran::where('user_id', auth::id())
+    \App\Models\Pendaftaran::where('user_id', Auth::id())
         ->whereNotNull('notifikasi')
         ->update(['is_read' => true]);
 
@@ -110,5 +151,8 @@ Route::post('/notifikasi/read', function () {
 
 })->middleware('auth')->name('notifikasi.read');
 
+
+// ======================
 // AUTH
+// ======================
 require __DIR__.'/auth.php';

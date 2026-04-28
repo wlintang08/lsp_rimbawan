@@ -109,6 +109,12 @@ class PendaftaranController extends Controller
         // ✅ SIMPAN
         $pendaftaran->save();
 
+        \App\Models\AuditLog::create([
+            'user_id' => Auth::id(),
+            'aksi' => 'Update Status Pendaftaran',
+            'deskripsi' => 'Status diubah dari ' . $current . ' ke ' . $new . ' (ID: '.$pendaftaran->id.')'
+        ]);
+
         // ✅ LOG
         Log::info('Update status pendaftaran', [
             'pendaftaran_id' => $pendaftaran->id,

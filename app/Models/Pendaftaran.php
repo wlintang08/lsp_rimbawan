@@ -45,4 +45,9 @@ class Pendaftaran extends Model
     {
         return $this->hasMany(\App\Models\Berkas::class);
     }
+
+    public function nilaiKriteria()
+    {
+        return $this->hasMany(NilaiKriteria::class);
+    }
 }

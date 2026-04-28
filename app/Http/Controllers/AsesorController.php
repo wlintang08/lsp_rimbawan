@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asesor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AsesorController extends Controller
 {
@@ -46,8 +47,14 @@ class AsesorController extends Controller
 
     public function destroy($id)
     {
-        Asesor::destroy($id);
+    // 🔒 hanya superadmin
+        if (auth::user()->role !== 'superadmin') {
+        abort(403);
+    }
 
-        return redirect('/asesor')->with('success', 'Data berhasil dihapus');
+    $asesor = \App\Models\User::findOrFail($id);
+    $asesor->delete();
+
+    return back()->with('success', 'Asesor dihapus');
     }
 }

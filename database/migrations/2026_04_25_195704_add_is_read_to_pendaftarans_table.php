@@ -6,23 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
-        Schema::table('pendaftarans', function (Blueprint $table) {
-            $table->boolean('is_read')->default(false);
-        });
+        // CEK DULU, BARU TAMBAH
+        if (!Schema::hasColumn('pendaftarans', 'is_read')) {
+            Schema::table('pendaftarans', function (Blueprint $table) {
+                $table->boolean('is_read')->default(false);
+            });
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('pendaftarans', function (Blueprint $table) {
-            //
-        });
+        // CEK DULU, BARU HAPUS
+        if (Schema::hasColumn('pendaftarans', 'is_read')) {
+            Schema::table('pendaftarans', function (Blueprint $table) {
+                $table->dropColumn('is_read');
+            });
+        }
     }
 };

@@ -21,6 +21,11 @@ class Skema extends Model
 
     public function pendaftaran()
     {
-    return $this->hasMany(\App\Models\Pendaftaran::class);
+        return $this->hasMany(\App\Models\Pendaftaran::class);
+    }
+
+    public function kriterias()
+    {
+        return $this->hasMany(Kriteria::class);
     }
 }

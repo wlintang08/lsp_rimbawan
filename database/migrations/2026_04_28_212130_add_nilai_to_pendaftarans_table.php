@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('audit_logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->nullable();
-            $table->string('aksi');
-            $table->text('deskripsi')->nullable();
-            $table->timestamps();
+        Schema::table('pendaftarans', function (Blueprint $table) {
+            $table->integer('nilai')->nullable();
+            $table->foreignId('asesor_id')->nullable();
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('audit_logs');
+        Schema::table('pendaftarans', function (Blueprint $table) {
+            //
+        });
     }
 };

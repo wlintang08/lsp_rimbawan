@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
         // jika belum login
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        // jika role tidak sesuai → STOP saja
-        if (Auth::user()->role !== $role) {
-            abort(403); // jangan redirect lagi
+        // jika role tidak sesuai
+        if (!in_array(Auth::user()->role, $roles)) {
+            abort(403);
         }
 
         return $next($request);

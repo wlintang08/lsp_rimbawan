@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asesi;
-use App\Models\Skema; // WAJIB ADA
+use App\Models\Skema; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AsesiController extends Controller
 {
@@ -39,9 +40,16 @@ class AsesiController extends Controller
         return redirect('/asesi');
     }
 
-    public function destroy($id)
+   public function destroy($id)
     {
-        Asesi::destroy($id);
-        return redirect('/asesi');
+    // 🔒 BATASI HANYA SUPERADMIN
+        if (auth::user()->role !== 'superadmin') {
+        abort(403);
+    }
+
+    $data = \App\Models\User::findOrFail($id);
+    $data->delete();
+
+    return back()->with('success', 'Data berhasil dihapus');
     }
 }
