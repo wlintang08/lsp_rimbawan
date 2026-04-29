@@ -33,11 +33,11 @@ Route::get('/', function () {
         }
 
         if (Auth::user()->role === 'asesor') {
-            return redirect('/asesor/dashboard'); // nanti kita buat
+            return redirect()->route('asesor.dashboard');
         }
     }
 
-    return redirect()->route('login');
+    return view('welcome');
 });
 
 
@@ -180,3 +180,4 @@ Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
     Route::redirect('/skema', '/admin/skema');
     Route::redirect('/skema/create', '/admin/skema/create');
 });
+
