@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Asesor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AsesorController extends Controller
 {
@@ -22,13 +21,14 @@ class AsesorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'kompetensi' => 'required'
+            'nama' => 'required|string|max:255',
+            'kompetensi' => 'required|string|max:255',
+            'no_hp' => 'required|string|max:50',
         ]);
 
         Asesor::create($request->all());
 
-        return redirect('/asesor')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('asesor.index')->with('success', 'Data asesor berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -39,22 +39,26 @@ class AsesorController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'kompetensi' => 'required|string|max:255',
+            'no_hp' => 'required|string|max:50',
+        ]);
+
         $asesor = Asesor::findOrFail($id);
         $asesor->update($request->all());
 
-        return redirect('/asesor')->with('success', 'Data berhasil diupdate');
+        return redirect()->route('asesor.index')->with('success', 'Data asesor berhasil diupdate.');
     }
 
     public function destroy($id)
     {
-    // 🔒 hanya superadmin
-        if (auth::user()->role !== 'superadmin') {
-        abort(403);
-    }
+        if (auth()->user()->role !== 'superadmin') {
+            abort(403);
+        }
 
-    $asesor = \App\Models\User::findOrFail($id);
-    $asesor->delete();
+        Asesor::destroy($id);
 
-    return back()->with('success', 'Asesor dihapus');
+        return back()->with('success', 'Data asesor berhasil dihapus.');
     }
 }

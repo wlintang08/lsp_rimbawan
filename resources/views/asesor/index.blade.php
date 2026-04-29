@@ -4,7 +4,7 @@
 
 <h2>Data Asesor</h2>
 
-<a href="/asesor/create" class="btn btn-primary mb-3">Tambah Asesor</a>
+<a href="{{ route('asesor.create') }}" class="btn btn-primary mb-3">Tambah Asesor</a>
 
 @if(session('success'))
 <div class="alert alert-success">{{ session('success') }}</div>

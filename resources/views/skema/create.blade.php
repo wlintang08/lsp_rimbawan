@@ -8,7 +8,7 @@
 
 <h2>Tambah Skema</h2>
 
-<form action="/skema" method="POST">
+<form action="{{ route('skema.store') }}" method="POST">
     @csrf
 
     <input type="text" name="nama_skema" class="form-control mb-2" placeholder="Nama Skema">

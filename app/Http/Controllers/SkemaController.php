@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Skema;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class SkemaController extends Controller
 {
     public function index()
     {
         $skema = Skema::all();
-
         return view('skema.index', compact('skema'));
     }
 
@@ -22,34 +20,43 @@ class SkemaController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_skema' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+        ]);
+
         Skema::create($request->all());
 
-        return redirect('/skema');
+        return redirect()->route('skema.index')->with('success', 'Data skema berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
         $skema = Skema::findOrFail($id);
-
         return view('skema.edit', compact('skema'));
     }
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_skema' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+        ]);
+
         $skema = Skema::findOrFail($id);
         $skema->update($request->all());
 
-        return redirect('/skema');
+        return redirect()->route('skema.index')->with('success', 'Data skema berhasil diupdate.');
     }
 
     public function destroy($id)
     {
-        if (auth::user()->role !== 'superadmin') {
-        abort(403);
-    }
+        if (auth()->user()->role !== 'superadmin') {
+            abort(403);
+        }
 
-    \App\Models\Skema::destroy($id);
+        Skema::destroy($id);
 
-    return back();
+        return back()->with('success', 'Data skema berhasil dihapus.');
     }
 }

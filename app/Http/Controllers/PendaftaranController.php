@@ -15,10 +15,9 @@ class PendaftaranController extends Controller
             ->latest()
             ->get();
 
-        // ✅ ambil notifikasi
-        $notifikasi = $pendaftaran->whereNotNull('notifikasi');
+        $notifikasi = $pendaftaran->whereNotNull('notifikasi')->values();
 
-        return view('asesi.dashboard', compact('pendaftaran','notifikasi'));
+        return view('asesi.dashboard', compact('pendaftaran', 'notifikasi'));
     }
 
     public function skemaList()
@@ -36,7 +35,6 @@ class PendaftaranController extends Controller
     {
         Skema::findOrFail($id);
 
-        // cek apakah sudah pernah daftar
         $cek = Pendaftaran::where('user_id', Auth::id())
             ->where('skema_id', $id)
             ->first();
@@ -45,11 +43,10 @@ class PendaftaranController extends Controller
             return back()->with('error', 'Anda sudah mendaftar skema ini');
         }
 
-        // simpan ke database
         Pendaftaran::create([
             'user_id' => Auth::id(),
             'skema_id' => $id,
-            'status' => 'pending'
+            'status' => Pendaftaran::STATUS_PENDING,
         ]);
 
         return back()->with('success', 'Berhasil mendaftar');

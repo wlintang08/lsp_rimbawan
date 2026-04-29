@@ -2,33 +2,33 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Pendaftaran;
+use App\Models\User;
 
 class PendaftaranPolicy
 {
-    // Admin boleh melihat semua
-    public function viewAny(User $user)
+    private function canManage(User $user): bool
     {
-        return $user->role === 'admin';
+        return in_array($user->role, ['admin', 'superadmin'], true);
     }
 
-    // Asesi hanya boleh lihat miliknya
-    public function view(User $user, Pendaftaran $p)
+    public function viewAny(User $user): bool
     {
-        return $user->role === 'admin' || $p->user_id === $user->id;
+        return $this->canManage($user);
     }
 
-    // Update status hanya admin
-    public function update(User $user, Pendaftaran $p)
+    public function view(User $user, Pendaftaran $p): bool
     {
-        return $user->role === 'admin';
+        return $this->canManage($user) || $p->user_id === $user->id;
     }
 
-    // Cetak sertifikat: admin atau pemilik (jika lulus)
-    public function cetak(User $user, Pendaftaran $p)
+    public function update(User $user, Pendaftaran $p): bool
     {
-        return $p->status === 'lulus' &&
-            ($user->role === 'admin' || $p->user_id === $user->id);
+        return $this->canManage($user);
+    }
+
+    public function cetak(User $user, Pendaftaran $p): bool
+    {
+        return $p->status === 'lulus' && ($this->canManage($user) || $p->user_id === $user->id);
     }
 }

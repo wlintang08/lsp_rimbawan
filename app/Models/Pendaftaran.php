@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pendaftaran extends Model
 {
-    // KONSTANTA HARUS DI DALAM CLASS
     const STATUS_PENDING = 'pending';
     const STATUS_DITERIMA = 'diterima';
     const STATUS_DITOLAK = 'ditolak';
@@ -20,10 +19,16 @@ class Pendaftaran extends Model
         'validated_by',
         'validated_at',
         'no_sertifikat',
+        'nilai',
+        'asesor_id',
+        'notifikasi',
+        'is_read',
     ];
 
     protected $casts = [
         'validated_at' => 'datetime',
+        'is_read' => 'boolean',
+        'nilai' => 'float',
     ];
 
     public function user()
@@ -33,7 +38,7 @@ class Pendaftaran extends Model
 
     public function skema()
     {
-         return $this->belongsTo(\App\Models\Skema::class);
+        return $this->belongsTo(\App\Models\Skema::class);
     }
 
     public function validator()

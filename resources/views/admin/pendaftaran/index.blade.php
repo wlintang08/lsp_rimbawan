@@ -87,7 +87,7 @@
     <!-- ✅ AKSI -->
     <td>
         @if(in_array($d->status, ['pending','diterima']))
-        <form action="/admin/pendaftaran/{{ $d->id }}" method="POST">
+        <form action="{{ route('admin.pendaftaran.update', $d->id) }}" method="POST">
             @csrf
             @method('PATCH')
 
@@ -110,7 +110,7 @@
         @endif
 
         @if($d->status == 'lulus')
-            <a href="/sertifikat/{{ $d->id }}" class="btn btn-success btn-sm mt-1 w-100">
+            <a href="{{ route('sertifikat.cetak', $d->id) }}" class="btn btn-success btn-sm mt-1 w-100">
                 Cetak Sertifikat
             </a>
         @endif

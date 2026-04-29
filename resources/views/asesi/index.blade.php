@@ -4,7 +4,7 @@
 
 <h2>Data Asesi</h2>
 
-<a href="/asesi/create" class="btn btn-primary mb-3">Tambah Asesi</a>
+<a href="{{ route('asesi.create') }}" class="btn btn-primary mb-3">Tambah Asesi</a>
 
 @if(session('success'))
 <div class="alert alert-success">{{ session('success') }}</div>

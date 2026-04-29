@@ -8,18 +8,16 @@
 
 <div class="row">
     <div class="col-md-4">
-        <a href="/asesi" class="btn btn-primary w-100 mb-2">Data Asesi</a>
+        <a href="{{ route('asesi.index') }}" class="btn btn-primary w-100 mb-2">Data Asesi</a>
     </div>
     <div class="col-md-4">
-        <a href="/asesor" class="btn btn-success w-100 mb-2">Data Asesor</a>
+        <a href="{{ route('asesor.index') }}" class="btn btn-success w-100 mb-2">Data Asesor</a>
     </div>
     <div class="col-md-4">
-        <a href="/skema" class="btn btn-warning w-100 mb-2">Data Skema</a>
+        <a href="{{ route('skema.index') }}" class="btn btn-warning w-100 mb-2">Data Skema</a>
     </div>
     <div class="col-md-4">
-        <a href="/admin/pendaftaran" class="btn btn-dark w-100 mb-2">
-            Data Pendaftaran
-        </a>
+        <a href="{{ route('admin.pendaftaran') }}" class="btn btn-dark w-100 mb-2">Data Pendaftaran</a>
     </div>
 </div>
 

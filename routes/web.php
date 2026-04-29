@@ -156,3 +156,27 @@ Route::post('/notifikasi/read', function () {
 // AUTH
 // ======================
 require __DIR__.'/auth.php';
+
+
+Route::middleware('auth')->get('/dashboard', function () {
+    $user = Auth::user();
+
+    if ($user->role === 'superadmin' || $user->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if ($user->role === 'asesor') {
+        return redirect()->route('asesor.dashboard');
+    }
+
+    return redirect()->route('asesi.dashboard');
+})->name('dashboard');
+
+Route::middleware(['auth', 'role:admin,superadmin'])->group(function () {
+    Route::redirect('/asesi', '/admin/asesi');
+    Route::redirect('/asesi/create', '/admin/asesi/create');
+    Route::redirect('/asesor', '/admin/asesor');
+    Route::redirect('/asesor/create', '/admin/asesor/create');
+    Route::redirect('/skema', '/admin/skema');
+    Route::redirect('/skema/create', '/admin/skema/create');
+});

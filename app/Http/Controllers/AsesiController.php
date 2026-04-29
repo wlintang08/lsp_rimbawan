@@ -3,53 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asesi;
-use App\Models\Skema; 
+use App\Models\Skema;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AsesiController extends Controller
 {
     public function index()
     {
-        $asesi = Asesi::all();
+        $asesi = Asesi::with('skema')->get();
         return view('asesi.index', compact('asesi'));
     }
 
     public function create()
     {
-        $skema = Skema::all(); // WAJIB ADA
-        return view('asesi.create', compact('skema')); // WAJIB ADA
+        $skema = Skema::all();
+        return view('asesi.create', compact('skema'));
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'nik' => 'required|string|max:50',
+            'email' => 'required|email|max:255',
+            'no_hp' => 'required|string|max:50',
+            'alamat' => 'required|string',
+            'skema_id' => 'required|exists:skemas,id',
+        ]);
+
         Asesi::create($request->all());
-        return redirect('/asesi');
+
+        return redirect()->route('asesi.index')->with('success', 'Data asesi berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
         $asesi = Asesi::findOrFail($id);
-        return view('asesi.edit', compact('asesi'));
+        $skema = Skema::all();
+
+        return view('asesi.edit', compact('asesi', 'skema'));
     }
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'nik' => 'required|string|max:50',
+            'email' => 'required|email|max:255',
+            'no_hp' => 'required|string|max:50',
+            'alamat' => 'required|string',
+            'skema_id' => 'required|exists:skemas,id',
+        ]);
+
         $asesi = Asesi::findOrFail($id);
         $asesi->update($request->all());
-        return redirect('/asesi');
+
+        return redirect()->route('asesi.index')->with('success', 'Data asesi berhasil diupdate.');
     }
 
-   public function destroy($id)
+    public function destroy($id)
     {
-    // 🔒 BATASI HANYA SUPERADMIN
-        if (auth::user()->role !== 'superadmin') {
-        abort(403);
-    }
+        if (auth()->user()->role !== 'superadmin') {
+            abort(403);
+        }
 
-    $data = \App\Models\User::findOrFail($id);
-    $data->delete();
+        Asesi::destroy($id);
 
-    return back()->with('success', 'Data berhasil dihapus');
+        return back()->with('success', 'Data asesi berhasil dihapus.');
     }
 }

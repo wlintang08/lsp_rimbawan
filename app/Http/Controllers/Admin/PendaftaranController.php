@@ -93,17 +93,19 @@ class PendaftaranController extends Controller
 
         // ✅ GENERATE NOMOR SERTIFIKAT
         if ($new === Pendaftaran::STATUS_LULUS && empty($pendaftaran->no_sertifikat)) {
-
             $lastNumber = Pendaftaran::whereYear('created_at', now()->year)
                 ->whereNotNull('no_sertifikat')
-                ->selectRaw('MAX(CAST(SUBSTRING_INDEX(no_sertifikat, "/", -1) AS UNSIGNED)) as max_no')
-                ->value('max_no');
+                ->pluck('no_sertifikat')
+                ->map(function ($nomor) {
+                    $parts = explode('/', $nomor);
+                    return (int) end($parts);
+                })
+                ->max();
 
             $nextNumber = $lastNumber ? $lastNumber + 1 : 1;
-
             $no = str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-            $pendaftaran->no_sertifikat = "LSP-RIM/" . now()->year . "/" . $no;
+            $pendaftaran->no_sertifikat = 'LSP-RIM/' . now()->year . '/' . $no;
         }
 
         // ✅ SIMPAN

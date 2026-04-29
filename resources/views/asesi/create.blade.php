@@ -8,7 +8,7 @@
 
 <h2>Tambah Asesi</h2>
 
-<form action="/asesi" method="POST">
+<form action="{{ route('asesi.store') }}" method="POST">
     @csrf
 
     <input type="text" name="nama" class="form-control mb-2" placeholder="Nama">

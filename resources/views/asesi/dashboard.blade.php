@@ -6,17 +6,22 @@
 
 <p>Selamat datang, {{ auth()->user()->name }}</p>
 
-<a href="/skema-list" class="btn btn-primary">Lihat Skema</a>
+<div class="d-flex gap-2 mb-3">
+    <a href="{{ route('asesi.skema') }}" class="btn btn-primary">Lihat Skema</a>
+    <a href="{{ route('asesi.pendaftaran') }}" class="btn btn-outline-secondary">Pendaftaran Saya</a>
+</div>
 
 <h4>Notifikasi</h4>
 
-@foreach($pendaftaran as $p)
-    @if($p->notifikasi)
+@if($notifikasi->isEmpty())
+    <p class="text-muted">Belum ada notifikasi.</p>
+@else
+    @foreach($notifikasi as $n)
         <div class="alert alert-info">
-            {{ $p->notifikasi }}
+            {{ $n->notifikasi }}
         </div>
-    @endif
-@endforeach
+    @endforeach
+@endif
 
 <h4 class="mt-4">Status Pendaftaran</h4>
 
@@ -27,6 +32,7 @@
         <tr>
             <th>Skema</th>
             <th>Status</th>
+            <th>Nilai</th>
             <th>No Sertifikat</th>
             <th>Aksi</th>
         </tr>
@@ -46,10 +52,11 @@
                     {{ $d->status }}
                 </span>
             </td>
+            <td>{{ $d->nilai ?? '-' }}</td>
             <td>{{ $d->no_sertifikat ?? '-' }}</td>
             <td>
                 @if($d->status == 'lulus')
-                    <a href="/sertifikat/{{ $d->id }}" class="btn btn-success btn-sm">Cetak Sertifikat</a>
+                    <a href="{{ route('sertifikat.cetak', $d->id) }}" class="btn btn-success btn-sm">Cetak Sertifikat</a>
                 @else
                     <span class="text-muted">Belum tersedia</span>
                 @endif

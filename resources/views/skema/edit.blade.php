@@ -8,7 +8,7 @@
 
 <h2>Edit Skema</h2>
 
-<form action="/skema/{{ $skema->id }}" method="POST">
+<form action="{{ route('skema.update', $skema->id) }}" method="POST">
     @csrf
     @method('PUT')
 

@@ -8,7 +8,7 @@
 
 <h2>Edit Asesi</h2>
 
-<form action="/asesi/{{ $asesi->id }}" method="POST">
+<form action="{{ route('asesi.update', $asesi->id) }}" method="POST">
     @csrf
     @method('PUT')
 

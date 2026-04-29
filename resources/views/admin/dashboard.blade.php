@@ -46,6 +46,17 @@
 
 </div>
 
+<div class="row mb-4">
+    <div class="col-md-4">
+        <a href="{{ route('asesi.index') }}" class="btn btn-outline-primary w-100">Kelola Asesi</a>
+    </div>
+    <div class="col-md-4">
+        <a href="{{ route('asesor.index') }}" class="btn btn-outline-success w-100">Kelola Asesor</a>
+    </div>
+    <div class="col-md-4">
+        <a href="{{ route('skema.index') }}" class="btn btn-outline-warning w-100">Kelola Skema</a>
+    </div>
+</div>
 <!-- ===================== -->
 <!-- CHART BAR -->
 <!-- ===================== -->
