@@ -18,27 +18,14 @@ use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\Asesor\DashboardController as AsesorDashboardController;
 
 // ======================
-// ROOT
+// FRONT PAGE / PUBLIC
 // ======================
-Route::get('/', function () {
+use App\Http\Controllers\FrontController;
 
-    if (Auth::check()) {
-
-        if (Auth::user()->role === 'superadmin' || Auth::user()->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        }
-
-        if (Auth::user()->role === 'asesi') {
-            return redirect()->route('asesi.dashboard');
-        }
-
-        if (Auth::user()->role === 'asesor') {
-            return redirect()->route('asesor.dashboard');
-        }
-    }
-
-    return view('welcome');
-});
+Route::get('/', [FrontController::class, 'home'])->name('home');
+Route::get('/news', [FrontController::class, 'news'])->name('news');
+Route::get('/alur-sertifikasi', [FrontController::class, 'alur'])->name('alur');
+Route::get('/skema-sertifikasi', [FrontController::class, 'skema'])->name('skema');
 
 
 // ======================

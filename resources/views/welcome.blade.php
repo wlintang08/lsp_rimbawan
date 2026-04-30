@@ -1,24 +1,77 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ config('app.name', 'LSP Rimbawan') }}</title>
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-<style>
-body{margin:0;font-family:Figtree,sans-serif;color:#182018;background:linear-gradient(180deg,#f5f8f3,#edf3ec)}a{text-decoration:none;color:inherit}.wrap{width:min(1180px,calc(100% - 28px));margin:auto}.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(18,59,37,.08)}.topin{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:14px}.logo{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;color:#fff;background:linear-gradient(180deg,#2a924e,#195b31);box-shadow:0 14px 28px rgba(25,91,49,.22)}.ttl{font-size:clamp(22px,2.2vw,34px);font-weight:800;color:#184b29;line-height:1}.sub{margin-top:6px;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#6f7d72}.nav{display:flex;gap:30px;font-weight:700;color:#516055}.nav a:hover{color:#1f6d3e}.act{display:flex;gap:12px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:999px;font-weight:700}.ghost{background:#fff;border:1px solid rgba(31,109,62,.14);color:#1f6d3e}.pri{background:linear-gradient(180deg,#2b9150,#185c31);color:#fff;box-shadow:0 14px 28px rgba(24,92,49,.24)}.hero{position:relative;overflow:hidden;color:#fff;background:#103523}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(10,43,22,.93),rgba(21,90,46,.72)),url('https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1800&q=80') center/cover}.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(231,198,97,.24),transparent 32%)}.heroIn{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:34px;padding:74px 0 92px}.tag{display:inline-flex;padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);font-size:12px;font-weight:800;letter-spacing:.26em;text-transform:uppercase}.hero h1{margin:24px 0 0;font-size:clamp(42px,5.8vw,76px);line-height:1.03}.hero p.lead{margin:24px 0 0;max-width:720px;font-size:20px;line-height:1.8;color:rgba(239,248,240,.95)}.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}.light{background:#fff;color:#185b30;box-shadow:0 18px 35px rgba(0,0,0,.18)}.outline{border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.06);color:#fff}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}.stat{padding:18px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.1);backdrop-filter:blur(12px)}.stat b{display:block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#def0df}.stat strong{display:block;margin-top:10px;font-size:36px}.stat span{display:block;margin-top:10px;font-size:14px;line-height:1.7;color:#e5f2e6}.panel{border:1px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.07));backdrop-filter:blur(16px);padding:26px;box-shadow:0 28px 56px rgba(0,0,0,.18)}.panel h2{margin:12px 0 0;font-size:30px;line-height:1.2}.steps{display:grid;gap:14px;margin-top:20px}.step{display:flex;gap:14px;padding:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06)}.num{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.12);font-weight:800}.step p{margin:4px 0 0;font-size:14px;line-height:1.7;color:#e8f4e9}.band{margin-top:-48px;position:relative;z-index:4}.cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;background:rgba(255,255,255,.96);padding:24px;border-radius:28px;box-shadow:0 20px 45px rgba(11,36,20,.14)}.mini{padding:22px;border:1px solid rgba(18,59,37,.08);background:linear-gradient(180deg,#fff,#f6fbf6)}.mini b{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#1f6d3e}.mini strong{display:block;margin-top:16px;font-size:42px}.mini span{display:block;margin-top:10px;font-size:15px;line-height:1.7;color:#4d5b50}.sec{padding:80px 0}.secW{background:rgba(255,255,255,.88);border-block:1px solid rgba(18,59,37,.06)}.ey{font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:#1f6d3e}.sec h2{margin:12px 0 0;max-width:760px;font-size:clamp(32px,4vw,46px);line-height:1.12}.desc{margin:16px 0 0;max-width:780px;font-size:17px;line-height:1.9;color:#4d5b50}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:32px}.card{background:rgba(255,255,255,.96);border:1px solid rgba(18,59,37,.12);box-shadow:0 14px 30px rgba(11,36,20,.08);overflow:hidden}.img{aspect-ratio:4/3;background-size:cover;background-position:center}.body{padding:22px}.k{font-size:13px;font-weight:700;color:#1f6d3e}.body h3{margin:10px 0 0;font-size:24px;line-height:1.3}.body p{margin:14px 0 0;font-size:15px;line-height:1.85;color:#4d5b50}.flow{display:grid;grid-template-columns:.82fr 1.18fr;gap:28px}.flowg{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.flowc{background:#f8fbf8;border-left:5px solid #1f6d3e;padding:24px;box-shadow:0 10px 24px rgba(11,36,20,.06)}.flowc b{font-size:13px;letter-spacing:.2em;color:#1f6d3e}.flowc h3{margin:14px 0 0;font-size:24px}.flowc p{margin:12px 0 0;font-size:15px;line-height:1.8;color:#4d5b50}.pill{display:inline-flex;min-height:34px;align-items:center;padding:0 14px;border-radius:999px;background:#edf7ef;color:#1f6d3e;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}@media(max-width:1080px){.nav{display:none}.heroIn,.flow{grid-template-columns:1fr}}@media(max-width:900px){.stats,.cards4,.grid3,.flowg{grid-template-columns:1fr}}@media(max-width:720px){.topin{flex-wrap:wrap;justify-content:center;padding:12px 0}.brand,.act{width:100%;justify-content:center}.heroIn{padding:54px 0 76px}.hero p.lead{font-size:17px}.cta{flex-direction:column}.btn{width:100%}.band{margin-top:-30px}}
-</style>
-</head>
-<body>
-<header class="top"><div class="wrap topin"><a href="{{ url('/') }}" class="brand"><span class="logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 5 9h2v2.7c0 .3-.1.6-.3.8L5 14h2v2.7c0 .3-.1.6-.3.8L5 19h14l-1.7-1.5c-.2-.2-.3-.5-.3-.8V14h2l-1.7-1.5c-.2-.2-.3-.5-.3-.8V9h2L12 2Z"/></svg></span><span><div class="ttl">LSP RIMBAWAN</div><div class="sub">Dan Lingkungan Hidup</div></span></a><nav class="nav"><a href="{{ auth()->check() ? route('dashboard') : route('login') }}">Dashboard</a><a href="#news">News</a><a href="#alur-sertifikasi">Alur Sertifikasi</a><a href="#skema-sertifikasi">Skema Sertifikasi</a></nav><div class="act">@guest<a href="{{ route('login') }}" class="btn ghost">Login</a>@if (Route::has('register'))<a href="{{ route('register') }}" class="btn pri">Register</a>@endif @else <a href="{{ route('dashboard') }}" class="btn pri">Masuk Dashboard</a>@endguest</div></div></header>
-<main>
-<section class="hero"><div class="wrap heroIn"><div><div class="tag">Lisensi BNSP Terakreditasi</div><h1>Portal sertifikasi rimbawan yang modern, hidup, dan tetap terasa resmi.</h1><p class="lead">Kontras saya perkuat, ruang visual saya rapikan, dan identitas kehutanan serta lingkungan hidup saya angkat lebih jelas supaya halaman depan tidak lagi terasa kosong atau tenggelam dalam warna putih.</p><div class="cta"><a href="#skema-sertifikasi" class="btn light">Jelajahi Skema Sertifikasi</a><a href="#alur-sertifikasi" class="btn outline">Lihat Alur Sertifikasi</a></div><div class="stats"><article class="stat"><b>Terverifikasi</b><strong>1.250+</strong><span>Asesi dengan jalur administrasi yang tertata dan mudah dipantau.</span></article><article class="stat"><b>Kompeten</b><strong>45</strong><span>Asesor aktif yang mendukung proses asesmen berbasis kriteria.</span></article><article class="stat"><b>Berkelanjutan</b><strong>12</strong><span>Skema aktif untuk kehutanan, konservasi, dan lingkungan hidup.</span></article></div></div><aside class="panel"><div class="ey" style="color:#e2f0e3">Portal Ringkas</div><h2>Tampilan yang lebih tenang tapi tidak datar.</h2><div class="steps"><div class="step"><div class="num">01</div><div><strong>Registrasi lebih jelas</strong><p>Masuk, daftar skema, dan pantau progres dalam alur yang lebih mudah dibaca.</p></div></div><div class="step"><div class="num">02</div><div><strong>Penilaian lebih terstruktur</strong><p>Tampilan mendukung fokus pada kriteria, nilai, dan hasil akhir tanpa terasa penuh.</p></div></div><div class="step"><div class="num">03</div><div><strong>Verifikasi digital aktif</strong><p>QR Code tetap mudah diakses sambil mempertahankan kesan resmi dan profesional.</p></div></div></div><div class="steps" style="grid-template-columns:repeat(2,1fr);margin-top:20px"><div><div class="k" style="color:#e2f0e3">Tingkat Kelulusan</div><h2 style="margin-top:8px">98%</h2></div><div><div class="k" style="color:#e2f0e3">Verifikasi Digital</div><h2 style="margin-top:8px">Aktif</h2></div></div></aside></div></section>
-<section class="band"><div class="wrap cards4"><article class="mini"><b>Aman</b><strong>1.250+</strong><span>Data asesi tersusun lebih rapi dengan pengalaman visual yang lebih matang.</span></article><article class="mini"><b>Presisi</b><strong>45</strong><span>Asesor aktif dengan proses penilaian yang lebih fokus dan mudah dilanjutkan.</span></article><article class="mini"><b>Fokus</b><strong>12</strong><span>Skema aktif dengan nuansa yang selaras dengan dunia rimbawan dan lingkungan.</span></article><article class="mini"><b>Hasil</b><strong>98%</strong><span>Presentasi visual yang lebih hidup, tidak membosankan, dan tetap formal.</span></article></div></section>
-<section id="news" class="sec"><div class="wrap"><div class="ey">News</div><h2>Informasi terbaru kini tampil lebih bertenaga dan tidak tenggelam di layar putih.</h2><p class="desc">Saya perkuat kontras dan susunan blok kontennya agar halaman terasa hidup saat dibuka, meskipun build frontend lama belum ikut diperbarui.</p><div class="grid3"><article class="card"><div class="img" style="background-image:linear-gradient(145deg,rgba(34,139,74,.25),rgba(8,48,24,.08)),url('https://images.unsplash.com/photo-1425913397330-cf8af2ff40a1?auto=format&fit=crop&w=900&q=80')"></div><div class="body"><div class="k">Update LSP</div><h3>Pendaftaran skema dibuka dengan tampilan yang lebih meyakinkan.</h3><p>Asesi bisa menangkap informasi penting lebih cepat karena hierarki visualnya sekarang lebih tegas dan nyaman dibaca.</p></div></article><article class="card"><div class="img" style="background-image:linear-gradient(145deg,rgba(34,139,74,.2),rgba(8,48,24,.1)),url('https://images.unsplash.com/photo-1466721591366-2d5fba72006d?auto=format&fit=crop&w=900&q=80')"></div><div class="body"><div class="k">Verifikasi</div><h3>Sertifikat digital tetap formal sambil terlihat modern.</h3><p>Pendekatan desain baru menjaga sisi resmi lembaga, tapi tidak lagi terasa kaku atau generik.</p></div></article><article class="card"><div class="img" style="background-image:linear-gradient(145deg,rgba(34,139,74,.18),rgba(8,48,24,.08)),url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80')"></div><div class="body"><div class="k">Asesmen</div><h3>Proses penilaian kini terasa lebih bersih dan fokus.</h3><p>Nuansa hijau hutan dan detail hangat memberi identitas visual yang lebih khas tanpa berlebihan.</p></div></article></div></div></section>
-<section id="alur-sertifikasi" class="sec secW"><div class="wrap flow"><div><div class="ey">Alur Sertifikasi</div><h2>Tahapan dibuat jelas, bernapas, dan jauh lebih enak diikuti.</h2><p class="desc">Setiap langkah punya ruang visual yang cukup, jadi pengguna tidak merasa ditumpuk informasi sekaligus saat pertama kali membuka halaman.</p></div><div class="flowg"><article class="flowc"><b>01</b><h3>Registrasi Akun</h3><p>Calon asesi membuat akun dan menyiapkan data dasar sebelum memilih skema yang sesuai.</p></article><article class="flowc"><b>02</b><h3>Pilih Skema</h3><p>Skema ditampilkan dengan narasi yang lebih rapi agar peserta cepat memahami pilihannya.</p></article><article class="flowc"><b>03</b><h3>Asesmen</h3><p>Asesor menilai peserta berdasarkan kriteria yang telah tersedia di dalam sistem.</p></article><article class="flowc"><b>04</b><h3>Sertifikat Terbit</h3><p>Peserta yang lulus dapat mencetak sertifikat serta membagikan verifikasi digitalnya.</p></article></div></div></section>
-<section id="skema-sertifikasi" class="sec"><div class="wrap"><div class="ey">Skema Sertifikasi</div><h2>Skema ditampilkan dengan presentasi yang lebih elegan dan terasa hidup.</h2><p class="desc">Sekarang bagian skema punya visual yang lebih kuat, jadi halaman utama tidak lagi terlihat kosong atau putih mendominasi layar.</p><div class="grid3"><article class="card"><div class="img" style="background-image:linear-gradient(145deg,rgba(24,94,49,.2),rgba(24,94,49,.05)),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80')"></div><div class="body"><div class="pill">Kehutanan</div><h3>Pengelolaan Hutan Lestari</h3><p>Untuk profesional yang menangani tata kelola hutan secara produktif, terukur, dan berkelanjutan.</p></div></article><article class="card"><div class="img" style="background-image:linear-gradient(145deg,rgba(24,94,49,.16),rgba(24,94,49,.05)),url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80')"></div><div class="body"><div class="pill">Lingkungan</div><h3>Pengendalian Dampak Lingkungan</h3><p>Skema untuk pengelolaan risiko, kepatuhan, dan penerapan mitigasi lingkungan yang jelas.</p></div></article><article class="card"><div class="img" style="background-image:linear-gradient(145deg,rgba(24,94,49,.18),rgba(24,94,49,.04)),url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80')"></div><div class="body"><div class="pill">Konservasi</div><h3>Konservasi Sumber Daya Alam</h3><p>Menilai kesiapan profesional dalam merencanakan, memantau, dan melaporkan program konservasi.</p></div></article></div></div></section>
-</main>
-</body>
-</html>
+@extends('layouts.front')
+
+@section('content')
+<!-- Hero Section -->
+<section class="relative bg-green-900 pt-24 pb-48 lg:pt-32 lg:pb-56 overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+             alt="Hutan" 
+             class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-green-900/85 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-green-900/90 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center justify-center px-4 py-1.5 mb-8 rounded-full bg-yellow-400 text-yellow-900 text-xs font-bold tracking-widest uppercase shadow-lg shadow-yellow-500/20">
+            Lisensi BNSP Terakreditasi
+        </div>
+        <div class="inline-flex items-center justify-center px-4 py-1.5 mb-8 rounded-full bg-yellow-400 text-yellow-900 text-xs font-bold tracking-widest uppercase shadow-lg shadow-yellow-500/20">
+            Terintegrasi Kementerian Kehutanan
+        </div>
+        <div class="inline-flex items-center justify-center px-4 py-1.5 mb-8 rounded-full bg-yellow-400 text-yellow-900 text-xs font-bold tracking-widest uppercase shadow-lg shadow-yellow-500/20">
+            Terintegrasi Kementrian Lingkungan Hidup
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1]">
+            Mencetak Tenaga Profesional <br class="hidden md:block"/> Lingkungan Hidup
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="mt-8 text-lg md:text-xl text-green-50 max-w-3xl mx-auto font-medium leading-relaxed">
+            Menjamin kompetensi sumber daya manusia di sektor kehutanan melalui proses sertifikasi yang independen, objektif, dan terukur.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="{{ url('/skema-sertifikasi') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-lg bg-white text-green-800 font-bold text-lg hover:bg-green-50 transition shadow-xl shadow-green-900/20">
+                Cari Skema Sertifikasi
+            </a>
+            <a href="{{ url('/alur-sertifikasi') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-lg bg-transparent border-2 border-white/60 text-white font-bold text-lg hover:bg-white/10 hover:border-white transition">
+                Lihat Alur Daftar
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section (Overlapping Hero) -->
+<section class="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 lg:-mt-28 mb-24">
+    <div class="bg-white rounded-3xl shadow-2xl shadow-green-900/10 p-8 md:p-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-stone-100 text-center">
+            
+            <div class="pt-6 md:pt-0">
+                <div class="text-4xl md:text-5xl font-extrabold text-green-700 tracking-tight">1,250+</div>
+                <div class="mt-3 text-[11px] font-bold text-stone-500 uppercase tracking-[0.2em]">Asesi Terverifikasi</div>
+            </div>
+
+            <div class="pt-6 md:pt-0">
+                <div class="text-4xl md:text-5xl font-extrabold text-green-700 tracking-tight">45</div>
+                <div class="mt-3 text-[11px] font-bold text-stone-500 uppercase tracking-[0.2em]">Asesor Kompeten</div>
+            </div>
+
+            <div class="pt-6 md:pt-0">
+                <div class="text-4xl md:text-5xl font-extrabold text-green-700 tracking-tight">12</div>
+                <div class="mt-3 text-[11px] font-bold text-stone-500 uppercase tracking-[0.2em]">Skema Aktif</div>
+            </div>
+
+            <div class="pt-6 md:pt-0">
+                <div class="text-4xl md:text-5xl font-extrabold text-green-700 tracking-tight">98%</div>
+                <div class="mt-3 text-[11px] font-bold text-stone-500 uppercase tracking-[0.2em]">Tingkat Kelulusan</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+@endsection

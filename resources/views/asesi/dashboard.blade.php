@@ -1,69 +1,138 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    
+    <!-- Welcome Banner -->
+    <div class="bg-gradient-to-br from-green-800 to-green-900 rounded-2xl shadow-xl shadow-green-900/20 overflow-hidden relative mb-8">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] opacity-10 bg-cover bg-center mix-blend-overlay"></div>
+        <div class="relative p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+                <h2 class="text-3xl font-extrabold text-white">Dashboard Asesi</h2>
+                <p class="mt-2 text-green-100 text-lg">Selamat datang kembali, <strong>{{ auth()->user()->name }}</strong>.</p>
+            </div>
+            <div class="flex gap-3 shrink-0">
+                <a href="{{ route('asesi.skema') }}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-white text-green-800 font-bold text-sm shadow-md hover:bg-green-50 transition">
+                    Lihat Skema
+                </a>
+                <a href="{{ route('asesi.pendaftaran') }}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-green-700/50 text-white font-bold text-sm border border-green-500 hover:bg-green-700 transition">
+                    Pendaftaran Saya
+                </a>
+            </div>
+        </div>
+    </div>
 
-<h2>Dashboard Asesi</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Kolom Utama: Status Pendaftaran -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
+                <h3 class="text-xl font-extrabold text-stone-900 mb-6">Status Pendaftaran Terakhir</h3>
+                
+                @if($pendaftaran->isEmpty())
+                    <div class="text-center py-10 bg-stone-50 rounded-xl border border-dashed border-stone-300">
+                        <p class="text-stone-500 font-medium">Belum ada pendaftaran skema.</p>
+                    </div>
+                @else
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-stone-200">
+                                    <th class="py-4 px-2 text-xs font-bold text-stone-500 uppercase tracking-widest">Skema</th>
+                                    <th class="py-4 px-2 text-xs font-bold text-stone-500 uppercase tracking-widest">Status</th>
+                                    <th class="py-4 px-2 text-xs font-bold text-stone-500 uppercase tracking-widest">Nilai</th>
+                                    <th class="py-4 px-2 text-xs font-bold text-stone-500 uppercase tracking-widest text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-100">
+                                @foreach($pendaftaran as $d)
+                                <tr class="hover:bg-stone-50/50 transition">
+                                    <td class="py-4 px-2 font-semibold text-stone-800">{{ $d->skema->nama_skema }}</td>
+                                    <td class="py-4 px-2">
+                                        <?php
+                                            $badgeClass = 'bg-stone-100 text-stone-800 border-stone-200';
+                                            if ($d->status == 'pending') {
+                                                $badgeClass = 'bg-amber-100 text-amber-800 border-amber-200';
+                                            } elseif ($d->status == 'diterima') {
+                                                $badgeClass = 'bg-blue-100 text-blue-800 border-blue-200';
+                                            } elseif ($d->status == 'lulus') {
+                                                $badgeClass = 'bg-green-100 text-green-800 border-green-200';
+                                            } elseif ($d->status == 'ditolak') {
+                                                $badgeClass = 'bg-red-100 text-red-800 border-red-200';
+                                            } elseif ($d->status == 'tidak_lulus') {
+                                                $badgeClass = 'bg-stone-100 text-stone-800 border-stone-200';
+                                            }
+                                        ?>
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border {{ $badgeClass }} uppercase tracking-wider">
+                                            {{ str_replace('_', ' ', $d->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-2 font-mono text-sm text-stone-600">{{ $d->nilai ?? '-' }}</td>
+                                    <td class="py-4 px-2 text-right">
+                                        @if($d->status == 'lulus')
+                                            <a href="{{ route('sertifikat.cetak', $d->id) }}" class="inline-flex items-center justify-center px-3 py-1.5 rounded bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-800 font-bold text-xs transition">
+                                                Cetak Sertifikat
+                                            </a>
+                                        @else
+                                            <span class="text-xs text-stone-400 font-medium">Belum tersedia</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+        </div>
 
-<p>Selamat datang, {{ auth()->user()->name }}</p>
+        <!-- Kolom Samping: Notifikasi -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-extrabold text-stone-900">Notifikasi</h3>
+                    @if($notifikasi->isNotEmpty())
+                        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-xs font-bold text-red-600">{{ $notifikasi->count() }}</span>
+                    @endif
+                </div>
 
-<div class="d-flex gap-2 mb-3">
-    <a href="{{ route('asesi.skema') }}" class="btn btn-primary">Lihat Skema</a>
-    <a href="{{ route('asesi.pendaftaran') }}" class="btn btn-outline-secondary">Pendaftaran Saya</a>
+                @if($notifikasi->isEmpty())
+                    <div class="text-center py-8">
+                        <svg class="mx-auto h-12 w-12 text-stone-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <p class="mt-2 text-stone-500 font-medium text-sm">Belum ada notifikasi baru.</p>
+                    </div>
+                @else
+                    <div class="space-y-3">
+                        @foreach($notifikasi as $n)
+                            <div class="p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-900 leading-relaxed shadow-sm">
+                                <div class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-blue-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div>{{ $n->notifikasi }}</div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<h4>Notifikasi</h4>
-
-@if($notifikasi->isEmpty())
-    <p class="text-muted">Belum ada notifikasi.</p>
-@else
-    @foreach($notifikasi as $n)
-        <div class="alert alert-info">
-            {{ $n->notifikasi }}
-        </div>
-    @endforeach
-@endif
-
-<h4 class="mt-4">Status Pendaftaran</h4>
-
-@if($pendaftaran->isEmpty())
-    <p class="text-muted">Belum ada pendaftaran.</p>
-@else
-    <table class="table table-bordered mt-2">
-        <tr>
-            <th>Skema</th>
-            <th>Status</th>
-            <th>Nilai</th>
-            <th>No Sertifikat</th>
-            <th>Aksi</th>
-        </tr>
-
-        @foreach($pendaftaran as $d)
-        <tr>
-            <td>{{ $d->skema->nama_skema }}</td>
-            <td>
-                <span class="badge
-                    @if($d->status == 'pending') bg-secondary
-                    @elseif($d->status == 'diterima') bg-primary
-                    @elseif($d->status == 'lulus') bg-success
-                    @elseif($d->status == 'ditolak') bg-danger
-                    @elseif($d->status == 'tidak_lulus') bg-dark
-                    @endif
-                ">
-                    {{ $d->status }}
-                </span>
-            </td>
-            <td>{{ $d->nilai ?? '-' }}</td>
-            <td>{{ $d->no_sertifikat ?? '-' }}</td>
-            <td>
-                @if($d->status == 'lulus')
-                    <a href="{{ route('sertifikat.cetak', $d->id) }}" class="btn btn-success btn-sm">Cetak Sertifikat</a>
-                @else
-                    <span class="text-muted">Belum tersedia</span>
-                @endif
-            </td>
-        </tr>
-        @endforeach
-    </table>
-@endif
-
+<script>
+// Auto mark notifikasi as read if notifikasi > 0
+document.addEventListener("DOMContentLoaded", function () {
+    @if($notifikasi->isNotEmpty())
+        fetch("{{ route('notifikasi.read') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Content-Type": "application/json"
+            }
+        });
+    @endif
+});
+</script>
 @endsection
