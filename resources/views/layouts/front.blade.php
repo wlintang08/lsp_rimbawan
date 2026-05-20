@@ -18,6 +18,124 @@
             color: #182018;
             background: #f5f8f3;
         }
+
+        .profession-section {
+            background: #ecfdf3;
+            padding: 64px 16px;
+        }
+
+        .profession-section.is-card {
+            margin-top: 64px;
+            border-radius: 16px;
+            border: 1px solid #d9f3df;
+        }
+
+        .profession-inner {
+            max-width: 1050px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(280px, 470px) minmax(280px, 1fr);
+            align-items: center;
+            gap: 56px;
+        }
+
+        .profession-media {
+            position: relative;
+        }
+
+        .profession-media::before {
+            content: "";
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            left: -20px;
+            top: -20px;
+            border-radius: 999px;
+            background: #fde047;
+        }
+
+        .profession-media img {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border: 6px solid #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 18px 35px rgba(20, 83, 45, 0.15);
+        }
+
+        .profession-title {
+            max-width: 440px;
+            color: #064e3b;
+            font-size: 30px;
+            line-height: 1.12;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .profession-description {
+            max-width: 560px;
+            margin-top: 16px;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .profession-features {
+            margin-top: 24px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .profession-feature {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            background: #ffffff;
+            border: 1px solid #dcfce7;
+            border-radius: 10px;
+            padding: 14px 16px;
+            box-shadow: 0 8px 20px rgba(20, 83, 45, 0.06);
+        }
+
+        .profession-icon {
+            display: flex;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #ecfdf3;
+            color: #15803d;
+        }
+
+        .profession-feature h3 {
+            color: #064e3b;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .profession-feature p {
+            margin-top: 4px;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 900px) {
+            .profession-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .profession-media img,
+            .profession-title,
+            .profession-description {
+                max-width: none;
+            }
+        }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen">
@@ -85,9 +203,55 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-stone-900 text-stone-400 py-10 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
-            
+    <footer class="mt-auto">
+        <div class="bg-white text-stone-950 py-14 border-t border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white bg-green-600">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 5 9h2v2.7c0 .3-.1.6-.3.8L5 14h2v2.7c0 .3-.1.6-.3.8L5 19h14l-1.7-1.5c-.2-.2-.3-.5-.3-.8V14h2l-1.7-1.5c-.2-.2-.3-.5-.3-.8V9h2L12 2Z"/></svg>
+                            </div>
+                            <h2 class="text-2xl font-extrabold text-stone-950">LSP RIMBAWAN</h2>
+                        </div>
+                        <p class="mt-6 leading-7 text-stone-700">Lembaga Sertifikasi Profesi yang berdedikasi tinggi dalam menciptakan standar kompetensi rimbawan yang diakui global.</p>
+                        <div class="mt-6 flex gap-4">
+                            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-stone-100 text-stone-950 font-bold">f</span>
+                            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-stone-100 text-stone-950 font-bold">ig</span>
+                            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-stone-100 text-stone-950 font-bold">in</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-extrabold text-stone-950">Tautan Cepat</h3>
+                        <div class="mt-6 space-y-4">
+                            <a href="#" class="block text-stone-700 hover:text-green-800">Cek Sertifikat</a>
+                            <a href="{{ url('/alur-sertifikasi') }}" class="block text-stone-700 hover:text-green-800">Download Form APL-01</a>
+                            <a href="{{ url('/skema-sertifikasi') }}" class="block text-stone-700 hover:text-green-800">Direktori Pemegang Sertifikat</a>
+                            <a href="{{ url('/') }}" class="block text-stone-700 hover:text-green-800">Visi & Misi</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-extrabold text-stone-950">Kontak</h3>
+                        <div class="mt-6 space-y-4 leading-7 text-stone-700">
+                            <p>Gedung Manggala Wanabakti Blok IV, Jakarta Pusat</p>
+                            <p>(021) 123 4567</p>
+                            <p>admin@lsprimbawan.id</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-extrabold text-stone-950">Newsletter</h3>
+                        <p class="mt-6 leading-7 text-stone-700">Dapatkan info jadwal sertifikasi terbaru langsung di email Anda.</p>
+                        <form class="mt-5 flex overflow-hidden rounded-lg border border-stone-200 bg-stone-50">
+                            <input type="email" placeholder="Email" class="min-w-0 flex-1 border-0 bg-transparent px-4 py-3 text-sm text-stone-950 placeholder:text-stone-500 focus:ring-0">
+                            <button type="button" class="bg-green-600 px-5 text-sm font-extrabold text-white hover:bg-green-700">Kirim</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </footer>
 

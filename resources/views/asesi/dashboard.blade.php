@@ -119,6 +119,76 @@
         </div>
 
     </div>
+
+    <section class="mt-16">
+        <div class="flex items-end justify-between gap-4">
+            <div>
+                <h2 class="text-2xl font-extrabold text-stone-900">Berita & Artikel</h2>
+                <div class="mt-3 h-1 w-16 rounded-full bg-green-700"></div>
+            </div>
+            <a href="{{ route('news') }}" class="text-sm font-bold text-green-800 hover:text-green-950">Lihat Semua &rarr;</a>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach($dashboardNews as $news)
+                <article class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-lg hover:shadow-green-900/10 transition">
+                    <a href="{{ route('news.detail', $news['slug']) }}" class="block aspect-video bg-green-100 overflow-hidden">
+                        <img
+                            src="{{ $news['image_remote'] ? $news['image'] : asset($news['image']) }}"
+                            alt="{{ $news['alt'] }}"
+                            class="w-full h-full object-cover"
+                            style="object-position: {{ $news['image_position'] }};"
+                        >
+                    </a>
+                    <div class="p-5">
+                        <p class="text-[11px] font-bold text-green-700">{{ $news['date'] }}</p>
+                        <h3 class="mt-2 text-base font-extrabold leading-snug text-stone-900">
+                            <a href="{{ route('news.detail', $news['slug']) }}" class="hover:text-green-800">{{ $news['title'] }}</a>
+                        </h3>
+                        <p class="mt-3 text-sm leading-6 text-stone-600">{{ $news['excerpt'] }}</p>
+                        <a href="{{ route('news.detail', $news['slug']) }}" class="mt-4 inline-flex text-sm font-bold text-green-700 hover:text-green-950">Baca Selengkapnya &rarr;</a>
+                    </div>
+                </article>
+            @endforeach
+        </div>
+    </section>
+
+    <section class="profession-section is-card">
+        <div class="profession-inner">
+            <div class="profession-media">
+                <img
+                    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                    alt="Kegiatan profesional LSP"
+                >
+            </div>
+            <div>
+                <h2 class="profession-title">Menjaga Standar Profesi Rimbawan</h2>
+                <p class="profession-description">
+                    LSP Rimbawan dan Lingkungan menjaga mutu proses sertifikasi melalui asesor kompeten, instrumen penilaian yang jelas, dan alur administrasi yang terukur.
+                </p>
+                <div class="profession-features">
+                    <div class="profession-feature">
+                        <div class="profession-icon">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M12 3l7 4v5c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z" /></svg>
+                        </div>
+                        <div>
+                            <h3>Legalitas Terjamin</h3>
+                            <p>Sertifikasi mengacu pada standar dan ketentuan nasional yang berlaku.</p>
+                        </div>
+                    </div>
+                    <div class="profession-feature">
+                        <div class="profession-icon">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4 0-7 2-7 4v1h14v-1c0-2-3-4-7-4z" /></svg>
+                        </div>
+                        <div>
+                            <h3>Asesor Berpengalaman</h3>
+                            <p>Proses asesmen dilakukan oleh asesor kompeten sesuai bidang keahlian.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>

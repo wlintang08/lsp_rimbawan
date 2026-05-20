@@ -13,6 +13,7 @@ use App\Http\Controllers\Asesi\PendaftaranController as AsesiPendaftaranControll
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AsesiController;
 use App\Http\Controllers\AsesorController;
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\SkemaController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\Asesor\DashboardController as AsesorDashboardController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\FrontController;
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
 Route::get('/news', [FrontController::class, 'news'])->name('news');
+Route::get('/news/{slug}', [FrontController::class, 'newsDetail'])->name('news.detail');
 Route::get('/alur-sertifikasi', [FrontController::class, 'alur'])->name('alur');
 Route::get('/skema-sertifikasi', [FrontController::class, 'skema'])->name('skema');
 
@@ -39,6 +41,10 @@ Route::middleware(['auth','role:admin,superadmin'])->prefix('admin')->group(func
     // CRUD
     Route::resource('asesi', AsesiController::class);
     Route::resource('asesor', AsesorController::class);
+    Route::post('/skema/{skema}/kriteria', [KriteriaController::class, 'store'])
+        ->name('skema.kriteria.store');
+    Route::delete('/skema/{skema}/kriteria/{kriteria}', [KriteriaController::class, 'destroy'])
+        ->name('skema.kriteria.destroy');
     Route::resource('skema', SkemaController::class);
 
     // PENDAFTARAN

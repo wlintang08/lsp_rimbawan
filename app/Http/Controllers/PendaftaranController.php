@@ -16,8 +16,9 @@ class PendaftaranController extends Controller
             ->get();
 
         $notifikasi = $pendaftaran->whereNotNull('notifikasi')->values();
+        $dashboardNews = array_slice(FrontController::newsItems(), 0, 3);
 
-        return view('asesi.dashboard', compact('pendaftaran', 'notifikasi'));
+        return view('asesi.dashboard', compact('pendaftaran', 'notifikasi', 'dashboardNews'));
     }
 
     public function skemaList()

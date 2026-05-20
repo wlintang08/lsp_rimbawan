@@ -9,7 +9,7 @@ class SkemaController extends Controller
 {
     public function index()
     {
-        $skema = Skema::all();
+        $skema = Skema::withCount('kriterias')->latest()->get();
         return view('skema.index', compact('skema'));
     }
 
@@ -23,16 +23,18 @@ class SkemaController extends Controller
         $request->validate([
             'nama_skema' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'unit_kompetensi' => 'nullable|string',
         ]);
 
-        Skema::create($request->all());
+        $skema = Skema::create($request->only('nama_skema', 'deskripsi'));
+        $this->storeUnitKompetensi($skema, $request->input('unit_kompetensi'));
 
         return redirect()->route('skema.index')->with('success', 'Data skema berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
-        $skema = Skema::findOrFail($id);
+        $skema = Skema::with('kriterias')->findOrFail($id);
         return view('skema.edit', compact('skema'));
     }
 
@@ -41,10 +43,12 @@ class SkemaController extends Controller
         $request->validate([
             'nama_skema' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'unit_kompetensi' => 'nullable|string',
         ]);
 
         $skema = Skema::findOrFail($id);
-        $skema->update($request->all());
+        $skema->update($request->only('nama_skema', 'deskripsi'));
+        $this->storeUnitKompetensi($skema, $request->input('unit_kompetensi'));
 
         return redirect()->route('skema.index')->with('success', 'Data skema berhasil diupdate.');
     }
@@ -58,5 +62,27 @@ class SkemaController extends Controller
         Skema::destroy($id);
 
         return back()->with('success', 'Data skema berhasil dihapus.');
+    }
+
+    private function storeUnitKompetensi(Skema $skema, ?string $unitKompetensi): void
+    {
+        if (! $unitKompetensi) {
+            return;
+        }
+
+        $existing = $skema->kriterias()
+            ->pluck('nama')
+            ->map(fn ($nama) => mb_strtolower(trim($nama)))
+            ->all();
+
+        collect(preg_split('/\r\n|\r|\n/', $unitKompetensi))
+            ->map(fn ($line) => trim(preg_replace('/^\s*(?:[-*]|\d+[\.)])\s*/', '', $line)))
+            ->filter()
+            ->unique(fn ($line) => mb_strtolower($line))
+            ->reject(fn ($line) => in_array(mb_strtolower($line), $existing, true))
+            ->each(fn ($line) => $skema->kriterias()->create([
+                'nama' => $line,
+                'bobot' => 1,
+            ]));
     }
 }

@@ -4,9 +4,10 @@ it('shows the public landing page for guests', function () {
     $response = $this->get('/');
 
     $response->assertOk();
-    $response->assertSee('Dashboard');
+    $response->assertSee('LSP RIMBAWAN');
+    $response->assertSee('Home');
     $response->assertSee('News');
     $response->assertSee('Skema Sertifikasi');
     $response->assertSee('Login');
-    $response->assertSee('Register');
+    $response->assertSee('Cari Skema Sertifikasi');
 });
