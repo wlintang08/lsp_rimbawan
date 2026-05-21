@@ -12,11 +12,11 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <article class="md:col-span-2 lg:col-span-3 bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-green-900/10 transition duration-300">
             <div class="grid md:grid-cols-5">
-                <a href="{{ route('news.detail', $featuredNews['slug']) }}" class="md:col-span-3 aspect-[4/3] md:aspect-auto min-h-[320px] bg-green-100 relative overflow-hidden group">
+                <a href="{{ route('news.detail', $featuredNews['slug']) }}" class="md:col-span-3 aspect-[4/3] md:aspect-auto min-h-[320px] bg-green-50 relative overflow-hidden group">
                     <img
                         src="{{ $featuredNews['image_remote'] ? $featuredNews['image'] : asset($featuredNews['image']) }}"
                         alt="{{ $featuredNews['alt'] }}"
-                        class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                        class="w-full h-full object-contain transition duration-500"
                         style="object-position: {{ $featuredNews['image_position'] }};"
                     >
                     <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-stone-950/55 via-stone-950/10 to-transparent"></div>
@@ -39,11 +39,11 @@
 
         @foreach($newsItems as $item)
             <article class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-green-900/10 transition duration-300 flex flex-col">
-                <a href="{{ route('news.detail', $item['slug']) }}" class="aspect-video w-full bg-green-100 relative overflow-hidden group">
+                <a href="{{ route('news.detail', $item['slug']) }}" class="aspect-video w-full bg-green-50 relative overflow-hidden group">
                     <img
                         src="{{ $item['image_remote'] ? $item['image'] : asset($item['image']) }}"
                         alt="{{ $item['alt'] }}"
-                        class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                        class="w-full h-full object-contain transition duration-500"
                         style="object-position: {{ $item['image_position'] }};"
                     >
                     <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/15 to-transparent"></div>

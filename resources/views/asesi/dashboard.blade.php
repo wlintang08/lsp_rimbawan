@@ -132,11 +132,11 @@
         <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             @foreach($dashboardNews as $news)
                 <article class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-lg hover:shadow-green-900/10 transition">
-                    <a href="{{ route('news.detail', $news['slug']) }}" class="block aspect-video bg-green-100 overflow-hidden">
+                    <a href="{{ route('news.detail', $news['slug']) }}" class="block aspect-video bg-green-50 overflow-hidden">
                         <img
                             src="{{ $news['image_remote'] ? $news['image'] : asset($news['image']) }}"
                             alt="{{ $news['alt'] }}"
-                            class="w-full h-full object-cover"
+                            class="w-full h-full object-contain"
                             style="object-position: {{ $news['image_position'] }};"
                         >
                     </a>

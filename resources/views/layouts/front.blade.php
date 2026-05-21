@@ -150,8 +150,8 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 5 9h2v2.7c0 .3-.1.6-.3.8L5 14h2v2.7c0 .3-.1.6-.3.8L5 19h14l-1.7-1.5c-.2-.2-.3-.5-.3-.8V14h2l-1.7-1.5c-.2-.2-.3-.5-.3-.8V9h2L12 2Z"/></svg>
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-extrabold text-green-900 leading-none">LSP RIMBAWAN</h1>
-                    <p class="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase text-green-700/80 mt-1">Dan Lingkungan Hidup</p>
+                    <h1 class="text-xl md:text-2xl font-extrabold text-green-900 leading-none">LSP RIMBAWAN </h1>
+                    <h1 class="text-xl md:text-2xl font-extrabold text-green-900 leading-none">DAN LINGKUNGAN</h1>
                 </div>
             </a>
 
@@ -175,7 +175,7 @@
             <div class="flex items-center gap-4">
                 @guest
                     <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center justify-center h-10 px-6 rounded-full font-bold text-sm bg-gradient-to-b from-green-600 to-green-800 text-white shadow-lg shadow-green-900/20 hover:scale-105 transition-transform">
-                        Login Asesi
+                        Login 
                     </a>
                 @else
                     <!-- Auth Dropdown / Logout -->

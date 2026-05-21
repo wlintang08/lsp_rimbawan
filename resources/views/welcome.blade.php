@@ -15,23 +15,23 @@
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <!-- Badge -->
         <div class="inline-flex items-center justify-center px-4 py-1.5 mb-8 rounded-full bg-yellow-400 text-yellow-900 text-xs font-bold tracking-widest uppercase shadow-lg shadow-yellow-500/20">
-            Lisensi BNSP Terakreditasi
+            Terlisensi BNSP 
         </div>
         <div class="inline-flex items-center justify-center px-4 py-1.5 mb-8 rounded-full bg-yellow-400 text-yellow-900 text-xs font-bold tracking-widest uppercase shadow-lg shadow-yellow-500/20">
-            Terintegrasi Kementerian Kehutanan
+            Teregister Kementerian Kehutanan
         </div>
         <div class="inline-flex items-center justify-center px-4 py-1.5 mb-8 rounded-full bg-yellow-400 text-yellow-900 text-xs font-bold tracking-widest uppercase shadow-lg shadow-yellow-500/20">
-            Terintegrasi Kementrian Lingkungan Hidup
+            Teregister Kementrian Lingkungan Hidup
         </div>
 
         <!-- Headline -->
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1]">
-            Mencetak Tenaga Profesional <br class="hidden md:block"/> Lingkungan Hidup
+            Mencetak Tenaga Profesional <br class="hidden md:block"/> Kehutanan dan Lingkungan Hidup
         </h1>
 
         <!-- Subtitle -->
         <p class="mt-8 text-lg md:text-xl text-green-50 max-w-3xl mx-auto font-medium leading-relaxed">
-            Menjamin kompetensi sumber daya manusia di sektor kehutanan melalui proses sertifikasi yang independen, objektif, dan terukur.
+            Memastikan dan memelihara kompetensi sumber daya manusia di sektor kehutanan dan Lingkungan Hidup melalui proses sertifikasi yang Valid, Reliabel, Fleksibel dan Fair.
         </p>
 
         <!-- CTA Buttons -->
@@ -40,7 +40,7 @@
                 Cari Skema Sertifikasi
             </a>
             <a href="{{ url('/alur-sertifikasi') }}" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-lg bg-transparent border-2 border-white/60 text-white font-bold text-lg hover:bg-white/10 hover:border-white transition">
-                Lihat Alur Daftar
+                Lihat Alur Pendaftaran
             </a>
         </div>
     </div>
@@ -87,11 +87,11 @@
     <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         @foreach($homeNews as $news)
             <article class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden hover:shadow-lg hover:shadow-green-900/10 transition">
-                <a href="{{ route('news.detail', $news['slug']) }}" class="block aspect-video bg-green-100 overflow-hidden">
+                <a href="{{ route('news.detail', $news['slug']) }}" class="block aspect-video bg-green-50 overflow-hidden">
                     <img
                         src="{{ $news['image_remote'] ? $news['image'] : asset($news['image']) }}"
                         alt="{{ $news['alt'] }}"
-                        class="w-full h-full object-cover"
+                        class="w-full h-full object-contain"
                         style="object-position: {{ $news['image_position'] }};"
                     >
                 </a>
